@@ -1,0 +1,14 @@
+SELECT
+    u.id AS user_id,
+    u.username,
+    u.is_staff,
+    u.is_superuser,
+    g.name AS group_name,
+    p.codename AS permission_codename,
+    p.name AS permission_name
+FROM auth_user u
+LEFT JOIN auth_user_groups ug ON u.id = ug.user_id
+LEFT JOIN auth_group g ON ug.group_id = g.id
+LEFT JOIN auth_group_permissions gp ON g.id = gp.group_id
+LEFT JOIN auth_permission p ON gp.permission_id = p.id
+ORDER BY u.username, g.name, p.codename;
